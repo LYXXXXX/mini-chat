@@ -1,0 +1,225 @@
+/* pages/detail/detail.wxss */
+page{
+    height: 100%;
+}
+.container{
+    background-color: white;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+
+.line{
+    /* border: black solid 1px 1px; */
+    background-color: black;
+    width: 100%;
+    padding: 1px 0;
+    margin-top: 0px;
+    box-sizing: border-box;
+
+}
+
+.line1{
+    width: 95%;
+    padding: 1px 0;
+    margin-top: 0px;
+    background-color: black;
+    box-sizing: border-box;
+
+}
+
+.centerView{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
+
+.containerView{
+    width: 95%;
+    height: 98%;
+    margin: 30rpx 10rpx 0 10rpx;
+    position: relative;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border: 1rpx solid #f9f9f9;
+    box-shadow: 0 2rpx 20rpx #999999;
+    border-radius: 10rpx;
+    box-sizing: border-box;
+
+}
+
+.topContainerView{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 15rpx;
+}
+
+/**
+ * 头像样式
+*/
+
+.profileImage{
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 30rpx;
+  }
+  /*头部显示名字和时间整体样式*/
+  .topRightView{
+    margin-left: 15rpx;
+    display: flex;
+    flex-direction: column;
+  }
+  /*用户名称样式*/
+  .topRightName{
+    font-size: 33rpx;
+  }
+  /*时间样式*/
+  .topRightTime{
+    font-size: 24rpx;
+    color: #b8b2b2;
+    margin-top: 10rpx;
+  }
+
+/* 中部样式 */
+.centerContentView{
+    width: auto;
+    margin: 15rpx;
+  }
+
+  /* 文字 */
+.centerContent{
+    width: 100%;
+    display: -webkit-box;
+    margin: 10rpx;
+    font-size:16px;
+    /* color:#000000; */
+    line-height: 40rpx;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow:ellipsis;
+  }
+
+/* 图片 */
+.largeBox{
+    width: 100%;
+    margin: 15rpx 10rpx;
+}
+
+.smallBox{
+    width: 80%;
+    margin: 15rpx 10rpx;
+}
+.centerImage{
+    margin-right: 5px;
+    text-align: center;
+    border-radius: 8px;
+}
+  
+.small{
+    width: 215rpx;
+    height: 215rpx;
+}
+.large{
+    width: 330rpx;
+    height: 330rpx;
+}
+.big{
+    width: 97%;
+}
+
+.contentTop{
+    height: 60rpx;
+    margin: 15rpx;
+}
+
+.contentTopLeft{
+    float: left;
+    margin-left: 5px;
+}
+
+.contentTopRight{
+    float: right;
+    margin-right: 5px;
+}
+
+.contentMain{
+    margin: 15rpx;
+    box-sizing: border-box;
+
+}
+
+.contentBox{
+    /* border: black solid 1px; */
+    margin-top: 40rpx;
+}
+
+.contentTopView{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 15rpx;
+}
+.contentTopRight{
+    /* display: flex; */
+    margin-left: 15rpx;
+
+}
+
+.contentCenterView{
+    width: 85%;
+    padding-left: 80rpx;
+}
+
+.contentCheck{
+    width: 100%;
+    margin: 10rpx;
+    display: flex;
+    flex-direction: row;
+}
+
+.font{
+    font-size: 30rpx;
+    margin-right: 60rpx;
+}
+
+.blue{
+    color: rgb(44, 89, 212);
+}
+
+/*底部view整体样式*/
+.bottom{
+    height: 5%;
+    width: 100%;
+    border-top: 2px solid black;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+}
+
+/*每个Item样式*/
+.bottomItemView{
+    flex: 1;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Item样式中的图标样式 顶 踩 分享 评论*/
+.bottomItemImage{
+    width: 60rpx;
+    height: 60rpx;
+  }
+
+/*Item中的文字样式  顶 踩 分享 评论*/
+.bottomItemText{
+    font-size: 35rpx;
+    color: #2c2b2b;
+    margin-left: 20rpx;
+  }

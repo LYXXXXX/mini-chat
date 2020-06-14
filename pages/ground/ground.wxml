@@ -1,0 +1,65 @@
+<!--pages/ground/ground.wxml-->
+<view class="TOP">顶部栏</view>
+<view class="container">
+	<scroll-view scroll-y="true" style="height: 1020rpx" bindscrolltolower="loadData">
+		<!-- 动态列表 -->
+		<block wx:for="{{testList}}" wx:key="index">
+			<!-- 单条动态整体样式 -->
+			<view class="containerView" id="{{item.id}}" data-user-id="{{item.user_id}}">
+				<!-- 顶部：头像 - 昵称 - 发布时间 - 举报 -->
+				<view class="topContainerView">
+					<image class="profileImage" id="{{item.id}}" data-user-id="{{item.user_id}}" catch:tap="UserDetail"
+						src="{{item.avatar}}" />
+					<view class="topRightView">
+						<text class="topRightName" id="{{item.id}}" data-user-id="{{item.user_id}}"
+							catch:tap="UserDetail">{{item.nickName}}</text>
+						<text class="topRightTime">{{item.create_time}}</text>
+					</view>
+					<view class="topRightReport" id="{{item.id}}" data-user-id="{{item.user_id}}" catchtap="ReportUser">
+						举报</view>
+				</view>
+
+				<!-- 中部: 文字 - 图片 -->
+				<view class="centerContentView">
+					<!-- 中部：动态主体内容 文字部分 -->
+					<!-- <text>{{item.is_zk}}</text> -->
+					<view class="centerContent {{!item.is_zk?'mask':''}}" catch:tap="zk" data-index="{{index}}"
+						data-zk="{{item.is_zk}}">
+						{{item.text}}
+					</view>
+
+					<!-- 中部：动态主体内容 图片部分 -->
+					<view class="{{item.imgList.length==4 ? 'smallBox' : 'largeBox'}}">
+						<block wx:for="{{item.imgList}}" wx:for-item="imgsrc">
+							<image mode="aspectFill" catchtap='LookPhoto' data-id="{{item.id}}"
+								data-photUrl='{{imgsrc}}'
+								class="centerImage {{item.imgList.length==1 || item.imgList.length==2 ? 'large' : 'small'}}"
+								src="{{imgsrc}}" />
+						</block>
+					</view>
+				</view>
+
+				<!-- 底部：点赞 - 评论 - 私聊 -->
+				<view class="bottomView">
+
+					<view class="bottomItemView" id="{{item.id}}" data-user-id="{{item.user_id}}" catch:tap="chat">
+						<image class="bottomItemImage" src="../../images/ground/chat.png" />
+					</view>
+					<view class="bottomItemView" id="{{item.id}}" data-user-id="{{item.user_id}}" catch:tap="Comtent">
+						<text class="bottomItemText">{{item.content}}</text>
+						<image class="bottomItemImage" src="../../images/ground/content.png" />
+					</view>
+					<view class="bottomItemView" id="{{item.id}}" data-user-id="{{item.user_id}}"
+						data-love="{{item.is_love}}" data-num="{{item.love}}" catch:tap="Love">
+						<text class="bottomItemText">{{item.love}}</text>
+						<image class="bottomItemImage"
+							src="{{!item.is_love?'../../images/ground/love.png':'../../images/ground/love_active.png'}}" />
+					</view>
+				</view>
+
+				<!-- <view class="divLine" /> -->
+			</view>
+			<!-- <view class="divLine" /> -->
+		</block>
+	</scroll-view>
+</view>

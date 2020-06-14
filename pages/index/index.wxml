@@ -1,0 +1,6 @@
+<!--pages/index/index.wxml-->
+<view class="box" data-src='../list/list'  bindtouchend='toOther'>
+  <view class='main-text' animation="{{animationData.text}}"></view>
+  <view class='main-btn' animation="{{animationData.btn}}" >  </view>
+  <view class='bottom-copyright' data-src='../copyright/copyright' catchtap='toOther'>— 版权声明 —</view>
+</view>
