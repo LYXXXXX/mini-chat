@@ -2,88 +2,107 @@
 <view class="container">
     <view class="line"></view>
     <view class="containerView">
-        <scroll-view scroll-y="true" style="height: 93%">
-            <view class="topContainerView">
-                <image class="profileImage" id="{{dt.id}}" data-user-id="{{dt.user_id}}" catch:tap="UserDetail"
-                            src="{{dt.avatar}}" />
-                <view class="topRightView">
-                    <text class="topRightName" id="{{dt.id}}" data-user-id="{{dt.user_id}}"
-                        catch:tap="UserDetail">{{dt.nickName}}</text>
-                    <text class="topRightTime">{{dt.create_time}}</text>
-                </view>
-            </view>
-            <view class="centerContentView">
-                <view class="centerContent">
-                    {{dt.text}}
-                </view>
-                <!-- 中部：动态主体内容 图片部分 -->
-				<view class="{{dt.imgList.length==4 ? 'smallBox' : 'largeBox'}}">
-					<block wx:for="{{dt.imgList}}" wx:for-item="imgsrc">
-						<image mode="{{dt.imgList.length==1 ? 'widthFix' : 'aspectFill'}}" catchtap='LookPhoto' data-id="{{dt.id}}"
-								data-photUrl='{{imgsrc}}'
-								class="centerImage {{dt.imgList.length==1 ? 'big' : 'small'}} {{dt.imgList.length==2 ? 'large' : 'small'}}"
-								src="{{imgsrc}}" />
-					</block>
-				</view>
-            </view>
-            <view class="contentTop">
-                <view class="contentTopLeft">
-                    <text>评论 </text>                
-                    <text>{{dt.content.length}}</text>
-                </view>
-                <view class="contentTopRight">
-                    <text>喜欢 </text>
-                    <text>{{dt.love}}</text>
-                </view>
-            </view>
-            <view class="centerView">
-                <view class="line1"></view>
-            </view>
-            <view class="contentMain">
-                <view wx:for="{{content}}" wx:key="index" class="contentBox">
-                    <!-- 单条评论盒子 -->
-                    <!-- 评论头部 -->
-                    <view class="contentTopView">
-                        <!-- 评论头像 -->
-                        <image class="profileImage" id="{{item.id}}" data-author-id="{{item.author_id}}" catch:tap="UserDetail"
-                                        src="{{item.author_avatar}}" />
-                        <view class="contentTopRight">
-                            <!-- 评论昵称 和 回复对象 -->
-                            <text class="topRightName" style="color: #000;" id="{{item.id}}" data-author-id="{{item.author_id}}"
-                                    catch:tap="UserDetail">{{item.author}} </text>
-                            <text style="color: #001; font-size: 14px;" wx:if="{{item.flag==2}}"> 回复 {{item.target_name}} :</text>
-                        </view>
+        <scroll-view scroll-y="true" style="height: {{height_new}}px">
+            <view>
+                <view style="height: 15rpx;"></view>
+                <view class="topContainerView">
+                    <image class="profileImage" id="{{dt.id}}" data-user-id="{{dt.author_id}}" catch:tap="UserDetail"
+                        src="{{dt.author_avatar}}" />
+                    <view class="topRightView">
+                        <text class="topRightName" id="{{dt.id}}" data-user-id="{{dt.author_id}}"
+                            catch:tap="UserDetail">{{dt.author_nickName}}</text>
+                        <text class="topRightTime">{{dt.create_time}}</text>
                     </view>
-                    <!-- 评论内容 或 回复内容 -->
-                    <view class="contentCenterView">
-                        <!-- <view class="centerContent" style="font-size: 14px;" wx:if="{{item.flag==2}}">回复 {{item.target_name}} :</view> -->
-                        <view class="centerContent">
-                            {{item.text}}
-                        </view>
-                        <!-- 回复按钮 -->
-                        <view class="contentCheck">
-                            <view class="font">{{item.create_time}}</view>
-                            <view class="font blue"  catch:tap="content_Input">回复</view>
-                            <view class="font blue" catch:tap="chat">私聊</view>
-                        </view>
+                </view>
+                <view class="centerContentView">
+                    <view class="centerContent">
+                        {{dt.text}}
                     </view>
-                    
+                    <!-- 中部：动态主体内容 图片部分 -->
+                    <view class="{{dt.imgList.length==4 ? 'smallBox' : 'largeBox'}}">
+                        <block wx:for="{{dt.imgList}}" wx:for-item="imgsrc">
+                            <image mode="{{dt.imgList.length==1 ? 'widthFix' : 'aspectFill'}}" catch:tap='LookPhoto'
+                                onerror="imgOnError" data-index="{{index}}" data-photUrl='{{imgsrc}}'
+                                class="centerImage {{dt.imgList.length==1 ? 'big' : 'small'}} {{dt.imgList.length==2 ? 'large' : 'small'}}"
+                                src="{{imgsrc}}" />
+                        </block>
+                    </view>
+                </view>
+                <view class="contentTop">
+                    <view class="contentTopLeft">
+                        <text>评论 </text>
+                        <text>{{dt.comment.length}}</text>
+                    </view>
+                    <view class="contentTopRight">
+                        <text>喜欢 </text>
+                        <text>{{dt.love}}</text>
+                    </view>
+                </view>
+                <view class="centerView">
+                    <view class="line1"></view>
+                </view>
+                <view class="contentMain">
+                    <view wx:for="{{comment}}" wx:key="index" class="contentBox">
+                        <!-- 单条评论盒子 -->
+                        <!-- 评论头部 -->
+                        <view class="contentTopView">
+                            <!-- 评论头像 -->
+                            <image class="profileImage" id="{{item.id}}" data-author-id="{{item.author_id}}"
+                                catch:tap="UserDetail" src="{{item.author_avatar}}" />
+                            <view class="contentTopRight">
+                                <!-- 评论昵称 和 回复对象 -->
+                                <text class="topRightName" style="color: #000;" id="{{item.id}}"
+                                    data-author-id="{{item.author_id}}" catch:tap="UserDetail">{{item.author}} </text>
+                                <text style="color: #001; font-size: 14px;" wx:if="{{item.flag==2}}"> 回复
+                                    {{item.target_name}} :</text>
+                            </view>
+                        </view>
+                        <!-- 评论内容 或 回复内容 -->
+                        <view class="contentCenterView">
+                            <!-- <view class="centerContent" style="font-size: 14px;" wx:if="{{item.flag==2}}">回复 {{item.target_name}} :</view> -->
+                            <view class="centerContent">
+                                {{item.text}}
+                            </view>
+                            <!-- 回复按钮 -->
+                            <view class="contentCheck">
+                                <view class="font">{{item.create_time}}</view>
+                                <view class="font blue" hover-class="btn-hover" data-dt_id="{{dt.id}}" data-flag="2"
+                                    data-father_comment_id="{{item.id}}" data-target_id="{{item.author_id}}"
+                                    catch:tap="showPopup">回复</view>
+                                <view wx:if="{{dt.author_id==user_id}}" class="font blue" hover-class="btn-hover" catch:tap="delete">删除</view>
+                            </view>
+                        </view>
+
+                    </view>
                 </view>
             </view>
         </scroll-view>
+        <!-- 底部按钮 -->
         <view class="bottom">
-            <view class="bottomItemView" catch:tap="love">
-                <image class="bottomItemImage" src="{{!item.is_love?'../../images/ground/love.png':'../../images/ground/love_active.png'}}"></image>
+            <view class="bottomItemView" hover-class="btn-hover" data-id="{{dt.id}}" data-islove="{{dt.is_love}}" data-num="{{dt.love}}" catch:tap="love">
+                <image class="bottomItemImage"
+                    src="{{!dt.is_love?'../../images/ground/love.png':'../../images/ground/love_active.png'}}">
+                </image>
                 <text class="bottomItemText">喜欢</text>
             </view>
-            <view class="bottomItemView" catch:tap="content_Input">
+            <view class="bottomItemView" hover-class="btn-hover" data-dt_id="{{dt.id}}" data-flag="1"
+                catch:tap="showPopup">
                 <image class="bottomItemImage" src="../../images/ground/content.png"></image>
                 <text class="bottomItemText">评论</text>
             </view>
-            <view class="bottomItemView" catch:tap="chat">
+            <view class="bottomItemView" hover-class="btn-hover" catch:tap="chat">
                 <image class="bottomItemImage" src="../../images/ground/chat.png"></image>
-                <text class="bottomItemText">私聊</text>
+                <text class="bottomItemText">分享</text>
             </view>
         </view>
     </view>
+
+    <!-- 评论弹窗 -->
+    <van-popup custom-style="style" overlay="{{ true }}" show="{{ show }}" position="bottom" bind:close="onClose">
+        <view class='popup'>
+            <input value="{{value}}" class="input" placeholder-class="placeholderStyle" placeholder="请输入内容"
+                bindinput="getComment" />
+            <button type="primary" class="button" bind:tap="send">发送</button>
+        </view>
+    </van-popup>
 </view>

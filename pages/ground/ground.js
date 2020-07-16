@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    testList:[
+    height_new: 0,
+    testList: [
       {
         id: 1,
         user_id: 1,
@@ -14,74 +15,91 @@ Page({
         create_time: '10-10-22',
         text: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
         imgList: [
-          "http://127.0.0.1:8000/media/image/1/a.jpg",
-          "http://127.0.0.1:8000/media/image/1/b.jpg",
-          "http://127.0.0.1:8000/media/image/1/c.jpg",
-          "http://127.0.0.1:8000/media/image/1/d.png",
-          "http://127.0.0.1:8000/media/image/1/e.jpeg",
-          "http://127.0.0.1:8000/media/image/1/f.jpg",
+          "http://123.57.242.170:8000/media/image/1/a.jpg",
+          "http://123.57.242.170:8000/media/image/1/b.jpg",
+          "http://123.57.242.170:8000/media/image/1/c.jpg",
+          "http://123.57.242.170:8000/media/image/1/d.png",
+          "http://123.57.242.170:8000/media/image/1/e.jpeg",
+          "http://123.57.242.170:8000/media/image/1/f.jpg",
+          "http://123.57.242.170:8000/media/image/1/g.jpg",
+          "http://123.57.242.170:8000/media/image/1/h.jpg",
+          "http://123.57.242.170:8000/media/image/1/i.jpg",
         ],
-        
-        is_love:true,
+
+        is_love: true,
         love: 20,
         content: 25,
-        is_zk:false,
+        is_zk: false,
       },
       {
-        id:2,
-        user_id:2,
+        id: 2,
+        user_id: 2,
         avatar: '../../images/ground/love_active.png',
         nickName: 'aaa',
         create_time: '10-10-22',
         text: 'aaaaaaaaaaaaaaaaaaaaaaaaa',
-        imgList: [],
+        imgList: [
+          "http://123.57.242.170:8000/media/image/1/a.jpg",
+        ],
         love: 20,
         content: 25,
-        is_zk:false,
+        is_zk: false,
 
       },
       {
-        id:3,
-        user_id:3,
+        id: 3,
+        user_id: 3,
         avatar: '../../images/ground/love_active.png',
         nickName: 'aaa',
         create_time: '10-10-22',
         text: 'aaaaaaaaaaaaaaaaaaaaaaaaa',
-        imgList: [],
+        imgList: [
+          "http://123.57.242.170:8000/media/image/1/a.jpg",
+          "http://123.57.242.170:8000/media/image/1/b.jpg",
+        ],
         love: 20,
         content: 25,
-        is_zk:false,
+        is_zk: false,
 
       },
       {
-        id:4,
-        user_id:4,
+        id: 4,
+        user_id: 4,
         avatar: '../../images/ground/love_active.png',
         nickName: 'aaa',
         create_time: '10-10-22',
         text: 'aaaaaaaaaaaaaaaaaaaaaaaaa',
-        imgList: [],
+        imgList: [
+          "http://123.57.242.170:8000/media/image/1/a.jpg",
+          "http://123.57.242.170:8000/media/image/1/b.jpg",
+          "http://123.57.242.170:8000/media/image/1/c.jpg",
+        ],
         love: 20,
         content: 25,
-        is_zk:false,
+        is_zk: false,
 
       },
       {
-        id:5,
-        user_id:5,
+        id: 5,
+        user_id: 5,
         avatar: '../../images/ground/love_active.png',
         nickName: 'aaa',
         create_time: '10-10-22',
         text: 'aaaaaaaaaaaaaaaaaaaaaaaaa',
-        imgList: [],
+        imgList: [
+          "http://123.57.242.170:8000/media/image/1/a.jpg",
+          "http://123.57.242.170:8000/media/image/1/b.jpg",
+          "http://123.57.242.170:8000/media/image/1/c.jpg",
+          "http://123.57.242.170:8000/media/image/1/d.png",
+        ],
         love: 20,
         content: 25,
-        is_zk:false,
+        is_zk: false,
 
       },
       {
-        id:6,
-        user_id:6,
+        id: 6,
+        user_id: 6,
         avatar: '../../images/ground/love_active.png',
         nickName: 'aaa',
         create_time: '10-10-22',
@@ -89,12 +107,12 @@ Page({
         imgList: [],
         love: 20,
         content: 25,
-        is_zk:false,
+        is_zk: false,
 
       },
       {
-        id:7,        
-        user_id:7,
+        id: 7,
+        user_id: 7,
         avatar: '../../images/ground/love_active.png',
         nickName: 'aaa',
         create_time: '10-10-22',
@@ -102,20 +120,36 @@ Page({
         imgList: [],
         love: 20,
         content: 25,
-        is_zk:false,
+        is_zk: false,
 
       }
     ],
-    page:1
+    page: 1
+  },
+
+  // 图片加载失败
+  imgOnError(e) {
+    console.log(e);
+    var that = this;
+    var idx = e.currentTarget.dataset.index;
+    console.log(idx)
+    var _imgUrls = this.data.dt.imgList;
+    for (var i = 0; i < _imgUrls.length; i++) {
+      if (i == idx) {
+        that.setData({
+          [`dt.imgList[${idx}]`]: '../../images/girl.jpeg'
+        })
+      }
+    }
   },
 
   // 点击查看大图片
-  LookPhoto: function(e) {
+  LookPhoto: function (e) {
     var that = this;
     var id = e.currentTarget.dataset.id;
-    for(var i= 0; i<that.data.testList.length; i++){
+    for (var i = 0; i < that.data.testList.length; i++) {
       var a = that.data.testList[i]
-      if(a.id==id){
+      if (a.id == id) {
         wx.previewImage({
           current: e.currentTarget.dataset.photurl,
           urls: a.imgList
@@ -124,30 +158,30 @@ Page({
     }
   },
 
-// 点击显示全文
-  zk: function(e){
+  // 点击显示全文
+  zk: function (e) {
     console.log(e)
     var index = e.currentTarget.dataset.index;
     var flag = e.currentTarget.dataset.zk;
-    var that=this;
+    var that = this;
     that.setData({
       [`testList[${index}].is_zk`]: !flag
     })
   },
 
   // 点击进入用户详情页
-  UserDetail: function(event) {
+  UserDetail: function (event) {
     console.log('userdetail')
     console.log(event.currentTarget)
   },
 
   // 举报用户
-  ReportUser: function(event) {
+  ReportUser: function (event) {
     console.log('report')
   },
 
   // 点赞
-  Love: function(event) {
+  Love: function (event) {
     console.log(event)
     var that = this;
     var id = event.currentTarget.id;
@@ -155,12 +189,12 @@ Page({
     var flag = event.currentTarget.dataset.love;
     var num = event.currentTarget.dataset.num;
     console.log(id, user_id, flag, num)
-    for(var i= 0; i<that.data.testList.length; i++){
+    for (var i = 0; i < that.data.testList.length; i++) {
       var a = that.data.testList[i]
-      if(a.id==id){
-        if(!flag){
+      if (a.id == id) {
+        if (!flag) {
           var num = num + 1;
-        }else{
+        } else {
           var num = num - 1;
         }
         console.log(num)
@@ -190,7 +224,7 @@ Page({
   },
 
   // 评论
-  Comtent: function(event) {
+  Comtent: function (event) {
     console.log('content')
     console.log(event)
     var id = event.currentTarget.id;
@@ -201,12 +235,12 @@ Page({
   },
 
   // 私聊
-  chat: function(event) {
+  chat: function (event) {
     console.log('chat')
   },
 
   // 无限加载数据
-  loadData: function(){
+  loadData: function () {
     var that = this;
 
     // 请求下一页数据
@@ -241,10 +275,10 @@ Page({
           "http://127.0.0.1:8000/media/image/1/e.jpeg",
           "http://127.0.0.1:8000/media/image/1/f.jpg",
         ],
-        is_love:true,
+        is_love: true,
         love: 20,
         content: 25,
-        is_zk:false,
+        is_zk: false,
       }
     ];
 
@@ -259,7 +293,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.getSystemInfo({
+      complete: (res) => {
+        this.setData({
+          height_new: res.windowHeight - 69
+        })
+      },
+    })
   },
 
   /**

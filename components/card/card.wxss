@@ -1,7 +1,7 @@
 
-.card{
+.card {
     width: 100%;
-    height: 740rpx;
+    height: 800rpx;
     background-color: #ffffff;
     box-sizing: border-box;
     border: 1rpx solid #f9f9f9;
@@ -10,14 +10,27 @@
     margin-top: 50rpx;
 }
 
-.card .top{
-    width: 100%; 
+.card .top {
+    width: 100%;
 }
-.card .bottom{
-    width: 100%; 
+
+.card .bottom {
+    width: 100%;
     padding: 20rpx;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.card .bottom .bottom-top {
+    display: flex;
+}
+
+.infomation {
+    position: fixed;
+    right: 20rpx;
+    width: 300rpx;
+    display: flex;
+    flex-direction: row;
 }

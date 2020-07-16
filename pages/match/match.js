@@ -18,11 +18,23 @@ Page({
     up_height: 40,// 下层卡片下移高度，单位rpx
     page: 1,//接收到的分页数据第几页
     flag: false,
+    show: true,
+    height_new: 0,
+    hobbies:['篮球', 'cosplay', '二次元', '尤克里里', '颜控'],
+    backcolor:['rgb(74, 241, 219)', 'pink', 'greenyellow'],
   },
   onLoad: function () {
-    let that = this
+    let that = this;
+    wx.getSystemInfo({
+      complete: (res) => {
+        that.setData({
+          height_new: res.windowHeight-40
+        })
+      },
+    });
+
     wx.request({
-      url: 'http://127.0.0.1:8000/image/getimage/',
+      url: 'http://123.57.242.170:8000/image/getimage/',
       data:{
         page: this.data.page
       },
@@ -42,10 +54,20 @@ Page({
     const cards = []
     for (let i = 0; i < num; i++) {
       cards.push({
-        title: `卡片${i + 1}`,
+        name: `卡片${i + 1}`,
         // src: `https://source.unsplash.com/collection/190727/500x600?id=${i}`,
         src: this.data.cards_temp[i],
-        desc: `这是一段卡片${i + 1}的描述。`
+        desc: `这是一段卡片${i + 1}的描述。`,
+        city:'北京',
+        sex:0,
+        age:18,
+        pic: [
+          this.data.cards_temp[i],
+          this.data.cards_temp[1],
+          this.data.cards_temp[2],
+          this.data.cards_temp[3],
+          this.data.cards_temp[4],
+        ]
       })
     }
     this.setData({
@@ -54,6 +76,23 @@ Page({
       removed_cards: []
     })
   },
+
+    // 图片加载失败
+    imgOnError(e) {
+      console.log(e);
+      var that = this;
+      var idx = e.currentTarget.dataset.index;
+      console.log(idx)
+      var _imgUrls = this.data.dt.imgList;
+      for (var i = 0; i < _imgUrls.length; i++) {
+        if (i == idx) {
+          that.setData({
+            [`dt.imgList[${idx}]`]: '../../images/girl.jpeg'
+          })
+        }
+      }
+    },
+    
   onSwitch: function (e) {
     const { symbol } = e.currentTarget.dataset
     switch (symbol) {
@@ -150,7 +189,7 @@ Page({
   cardGet(page){
     let that = this;
     request({
-      url: 'http://127.0.0.1:8000/image/getimage/',
+      url: 'http://123.57.242.170:8000/image/getimage/',
       data: {
         page: page
       },
@@ -180,10 +219,10 @@ Page({
     // console.log(temp)
 
     let mSrc = 'cards['+ index +'].src';
-    let mTitle = 'cards['+ index +'].title'
+    let mTitle = 'cards['+ index +'].name'
     if(index<4){
       that.setData({
-        [mSrc] : temp
+        [mSrc] : temp,
       })
     }else{
       for(let i=4; i<=num; i++){
@@ -194,9 +233,19 @@ Page({
         }else{
           that.setData({
             [`cards[${i}]`]: {
-              title: `卡片${i+1}`,
+              name: `卡片${i+1}`,
               src: this.data.cards_temp[i],
-              desc: `这是一段新增卡片${i+1}的描述。`
+              desc: `这是一段新增卡片${i+1}的描述。`,
+              sex:0,
+              city:'天津',
+              age:20,
+              pic: [
+                this.data.cards_temp[i],
+                this.data.cards_temp[1],
+                this.data.cards_temp[2],
+                this.data.cards_temp[3],
+                this.data.cards_temp[4],
+              ]
             }
           })
         }
@@ -208,12 +257,28 @@ Page({
   showCardsInfo(e){
     const { direction, swiped_card_index, current_cursor } = e
     wx.showToast({
-      title: `卡片${swiped_card_index + 1}向${direction === 'left' ? '左' : '右'}滑`,
+      title: direction === 'left' ? '我很喜欢' : '再考虑一下',
       icon: 'none',
       duration: 1000
     })
     this.setData({
       current_cursor
+    })
+  },
+
+  aaaa(event){
+    
+    var index = this.data.current_cursor;
+    var card_detail = this.data.cards[index]
+    console.log(card_detail)
+    this.setData({
+      show:true,
+      card_detail
+    })
+  },
+  onClose(){
+    this.setData({
+      show:false
     })
   },
 

@@ -1,40 +1,110 @@
 <!-- index.wxml -->
-<view class="container">
-  <card-swipe wx:if="{{cards.length > 0 && flag==false}}" generic:card="card" class="card-swipe" bind:cardSwipe="cardSwipe" cards="{{cards}}" removed-cards="{{removed_cards}}" show-cards="{{show_cards}}" slide-thershold="{{thershold}}" transition="{{transition}}" scale-ratio="{{scale_ratio}}" circling="{{circling}}" up-height="{{up_height}}" rotate-deg="{{rotate_deg}}" slide-duration="{{slide_duration}}"></card-swipe>
+<!-- 页面主体 -->
+<view class="container" style="height: {{height_new}}px">
+  <!-- 卡片组件 -->
+  <card-swipe  catch:tap="aaaa" wx:if="{{cards.length > 0 && flag==false}}" generic:card="card" class="card-swipe" bind:cardSwipe="cardSwipe" cards="{{cards}}" removed-cards="{{removed_cards}}" show-cards="{{show_cards}}" slide-thershold="{{thershold}}" transition="{{transition}}" scale-ratio="{{scale_ratio}}" circling="{{circling}}" up-height="{{up_height}}" rotate-deg="{{rotate_deg}}" slide-duration="{{slide_duration}}"></card-swipe>
+  
+  
+  <!-- 卡片划完提示---最后替换为别的页面，暂时文字占位 -->
   <view wx:if="{{flag==true}}"> 没有啦 </view>
-  <!-- <view class="settings" style="display: block;">
-    <view class="label btn-area">
-      <text data-symbol="add" bind:tap="cardOperate">添加卡片</text>
-      <text decode="{{true}}">&emsp;</text>
-      <text data-symbol="reset" bind:tap="cardOperate">重置卡片</text>
-    </view>
-    <view class="label btn-area">
-      <view style="white-space: nowrap;">删除卡片</view>
-      <view style="display: flex; flex: 1; overflow-x: scroll;">
-        <block wx:for="{{cards}}" wx:for-item="card" wx:key="index">
-          <view wx:if="{{card}}" class="rm-card {{index === (current_cursor || 0) ? 'disable' : ''}}" data-remove-index="{{index}}" data-symbol="remove" bind:tap="cardOperate">
-            {{index + 1}}
-          </view>
-        </block>
+
+  <!-- 卡片点击展示详情--弹出框 -->
+  <van-popup 
+    custom-style="height: 95%;"
+    custom-class="style" 
+    show="{{ show }}" 
+    overlay="{{ true }}" 
+    overlay-style="overlay"
+    position="bottomDemo" 
+    catch:close="onClose">
+    <!-- 有高度的空标签 内容不满时不会滑动 -->
+    <view style="height: 40rpx;"></view>
+
+    <!-- 弹出部分 可上下滑动 -->
+    <scroll-view class="detailBox" scroll-y="true" style="height: 95%;">
+      <!-- 展示第一部分--顶部--左右滑动照片 -->
+      <view class="topBox">
+        <!-- banner 图片区域 -->
+        <swiper class="swiper">
+          <block wx:for="{{ cards[0].pic }}">  <!-- 替换为目标ID的内容 -->
+            <swiper-item>
+              <!-- 图片标签 卡片样式 -->
+              <image class="topBoxImg card_style" src="{{ item }}" mode="aspectFill"></image>
+            </swiper-item>
+          </block>
+        </swiper>    
       </view>
-    </view>
+      <!-- 展示第二部分--中部--人物详细文字信息 -->
+      <view class="centerBox">
+        <!-- 卡片样式 -->
+        <view class="userInfo card_style">
+          <!-- 左侧 头像 -->
+          <view class="centerBoxLeft">
+            <image class="centerBoxLeft-avatar" mode="aspectFill" src="{{cards[0].src}}"></image>
+          </view>
+          <!-- 右侧 主要信息 -->
+          <view class="centerBoxRight">
+            <view class="sonOfRightBox">
+               <view class="text">昵称 | LYXXXX</view>
+               
+            </view>
+            <view class="sonOfRightBox">
+              <view class="text">性别 | 男</view>
+              <view class="text">年龄 | 18</view>
+           </view>
+           <view class="sonOfRightBox">
+            <view class="text">地区 | 北京</view>
+            <view class="text">状态 | 单身</view>
+         </view>
+          </view>
+        </view>
+      </view>
+      <!-- 展示第三部分--底部--人物受欢迎程度/择偶意向等 -->
+      <view class="bottomBox">
+        <!-- 大盒子  包含三个小盒子 -->
+        <view class="bottomBigBox">
+          <!-- 第一个盒子 -->
+          <view class="BottomLittleBox">
+            <!-- 第一行标题  靠左 -->
+            <view class="LeftOfBottomLittleBox"> 兴趣爱好 </view>
+            <!-- 第二行内容 -->
+            <view class="textOfBottom">
+              <view class="textStyle">
+                <block wx:for="{{hobbies}}">
+                  <view class="hobbies" style="background-color: {{backcolor[index%3]}}; color: {{color[index%9]}};">{{item}}</view>
+                </block>
+              </view>
+            </view>
+          </view>
+          <!-- 第二个盒子 -->
+          <view class="BottomLittleBox">
+            <!-- 第一行标题  靠左 -->
+            <view class="LeftOfBottomLittleBox"> 兴趣爱好 </view>
+            <!-- 第二行内容 -->
+            <view class="textOfBottom">
+              <view class="textStyle">
+                <text>啊啊啊啊啊 啊   啊啊啊啊啊啊啊啊啊啊啊啊啊 啊啊啊啊啊啊啊啊啊啊啊啊啊</text>
+              </view>            </view>
+          </view>
+          <!-- 第三个盒子 -->
+          <view class="BottomLittleBox">
+            <!-- 第一行标题  靠左 -->
+            <view class="LeftOfBottomLittleBox"> 奥术大师 </view>
+            <!-- 第二行内容 -->
+            <view class="textOfBottom">
+              <view class="textStyle">
+                <text>啊啊啊啊啊 啊   啊啊啊啊啊啊啊啊啊啊啊啊啊 </text>
+              </view>            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </van-popup>
+
+  <!-- 弹窗关闭悬浮按钮 -->
+  <view class="close-btn" wx:if="{{show}}">
+    <image onerror="imgOnError" style="width: 80rpx; height: 80rpx;" mode="aspectFill" src="../../images/index/close.png" catch:tap="onClose" ></image>
   </view>
-  <view class="settings">
-    <text class="label">列表循环：</text>
-    <switch class="setting" checked="{{circling}}" data-symbol="loop" bindchange="onSwitch" />
-    <text class="label">过渡动画：</text>
-    <switch class="setting" checked="{{transition}}" data-symbol="transition" bindchange="onSwitch" />
-  </view>
-  <view class="settings">
-    <text class="label">展示卡片：</text>
-    <slider class="setting" value="{{show_cards}}" data-symbol="show_cards" bindchange="onSlide" min="1" max="{{cards.length}}" show-value />
-  </view>
-  <view class="settings">
-    <text class="label">旋转角度：</text>
-    <slider class="setting" value="{{rotate_deg}}" data-symbol="rotate_deg" bindchange="onSlide" min="-180" max="180" show-value />
-  </view>
-  <view class="settings">
-    <text class="label">滑动时长：</text>
-    <slider class="setting" value="{{slide_duration}}" data-symbol="slide_duration" step="100" bindchange="onSlide" min="100" max="2000" show-value />
-  </view> -->
+
 </view>
+<custom-tab-bar></custom-tab-bar>

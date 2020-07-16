@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "card-swipe": "/components/cardSwipe/cardSwipe",
-    "card": "/components/card/card"
+    "card": "/components/card/card",
+    "van-popup": "../../dist/popup/index"
   }
 }

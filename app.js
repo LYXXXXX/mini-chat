@@ -2,7 +2,7 @@
 App({
 
   globalData: {
-    baseServer: "http://127.0.0.1:8000/",
+    baseServer: "http://123.57.242.170:8000/",
     userInfo: false,
     CANIUSE:false
   },

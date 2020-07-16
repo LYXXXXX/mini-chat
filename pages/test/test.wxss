@@ -1,0 +1,36 @@
+/* pages/test/test.wxss */
+
+.style {
+  z-index: 10000;
+  width: 100%;
+}
+
+.popup {
+  display: flex;
+  align-items: center;
+  background: rgb(242, 242, 242, 1);
+}
+
+.input {
+  width: 65%;
+  height: 60rpx;
+  display: block;
+  margin: 30rpx auto;
+  background: #fff;
+}
+
+.placeholderStyle {
+  font-size: 26rpx;
+  margin: 0 20rpx;
+}
+
+.button {
+  display: block;
+  height: 60rpx;
+  width: 20%;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 30rpx;
+  box-shadow: 8rpx;
+  color: #979797;
+}

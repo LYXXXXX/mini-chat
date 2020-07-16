@@ -1,0 +1,9 @@
+<!--pages/test/test.wxml-->
+<text>pages/test/test.wxml</text>
+<van-cell title="展示弹出层" is-link bind:click="showPopup" />
+<van-popup custom-style="style" overlay="{{ true }}" show="{{ show }}" position="bottom" bind:close="onClose">
+    <view class='popup'>
+            <input value="{{value}}" class="input" placeholder-class="placeholderStyle" placeholder="请输入内容" bindinput="getComment" />
+            <button type="primary" class="button" bind:tap="send">发送</button>
+    </view>
+</van-popup>
