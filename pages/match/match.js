@@ -22,6 +22,7 @@ Page({
     height_new: 0,
     hobbies:['篮球', 'cosplay', '二次元', '尤克里里', '颜控'],
     backcolor:['rgb(74, 241, 219)', 'pink', 'greenyellow'],
+    topNum:0,
   },
   onLoad: function () {
     let that = this;
@@ -276,9 +277,12 @@ Page({
       card_detail
     })
   },
+
   onClose(){
+    
     this.setData({
-      show:false
+      show:false,
+      topNum:0
     })
   },
 

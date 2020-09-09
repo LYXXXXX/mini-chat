@@ -21,7 +21,7 @@
     <view style="height: 40rpx;"></view>
 
     <!-- 弹出部分 可上下滑动 -->
-    <scroll-view class="detailBox" scroll-y="true" style="height: 95%;">
+    <scroll-view class="detailBox" scroll-y="true" scroll-top="{{topNum}}" style="height: 95%;">
       <!-- 展示第一部分--顶部--左右滑动照片 -->
       <view class="topBox">
         <!-- banner 图片区域 -->
@@ -83,8 +83,9 @@
             <!-- 第二行内容 -->
             <view class="textOfBottom">
               <view class="textStyle">
-                <text>啊啊啊啊啊 啊   啊啊啊啊啊啊啊啊啊啊啊啊啊 啊啊啊啊啊啊啊啊啊啊啊啊啊</text>
-              </view>            </view>
+                <text>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</text>
+              </view>            
+            </view>
           </view>
           <!-- 第三个盒子 -->
           <view class="BottomLittleBox">
@@ -93,7 +94,7 @@
             <!-- 第二行内容 -->
             <view class="textOfBottom">
               <view class="textStyle">
-                <text>啊啊啊啊啊 啊   啊啊啊啊啊啊啊啊啊啊啊啊啊 </text>
+                <text>啊啊啊啊啊 啊   啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊 </text>
               </view>            </view>
           </view>
         </view>
@@ -102,8 +103,8 @@
   </van-popup>
 
   <!-- 弹窗关闭悬浮按钮 -->
-  <view class="close-btn" wx:if="{{show}}">
-    <image onerror="imgOnError" style="width: 80rpx; height: 80rpx;" mode="aspectFill" src="../../images/index/close.png" catch:tap="onClose" ></image>
+  <view class="close-btn" wx:if="{{show}}" catch:tap="onClose">
+    <image onerror="imgOnError" style="width: 80rpx; height: 80rpx;" mode="aspectFill" src="../../images/index/close.png"></image>
   </view>
 
 </view>

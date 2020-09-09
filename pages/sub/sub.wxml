@@ -1,0 +1,42 @@
+<!--pages/sub/sub.wxml-->
+
+
+<view class="BigBox">
+
+    <view class="text">
+        <textarea placeholder=" 来呀，写下你的心情" value="{{content}}" bindinput="bindContentInput" />
+        <text class="currentWordNumber">{{currentWordNumber}}/{{max}}</text>
+    </view>
+
+    <view wx:if="{{ imageList.length < 9 }}" class="chose-image" bindtap="chooseImage">
+        <image src="/images/image.png"></image>
+        <text>+图片</text>
+    </view>
+
+    <view class="image-list" wx:if="{{imageList.length > 0}}">
+        <view class="item" wx:for="{{imageList}}" wx:key="key">
+            <image src="{{item.path}}"></image>
+            <icon class="rm" type="clear" color="red" data-index="{{index}}"
+                data-item="{{item}}" bindtap="removeImage"></icon>
+        </view>
+    </view>
+    
+
+    <view class="function-view">
+        <view class="row" bindtap="getLocation">
+            <view class="left" wx:if="{{address}}">{{address}}</view>
+            <view class="left" wx:else>请选择位置</view>
+            <view class="right">
+                <image class="go-icon" src='/images/icon/to_icon_show_small.png'></image>
+            </view>
+        </view>
+        <navigator url="/pages/topic/topic" class="row" >
+            <view class="left">{{topicTitle}}</view>
+            <view class="right">
+                    <image class="go-icon" src='/images/icon/to_icon_show_small.png'></image>
+            </view>
+        </navigator>
+    </view>
+  
+</view>
+<view class="publish-btn" bindtap="publishNews">发 布</view>

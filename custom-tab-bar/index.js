@@ -14,7 +14,7 @@ Component({
       selectedIconPath: "/images/icon_component_HL.png",
       text: "匹配"
     },{
-      pagePath: "/pages/logs/logs",
+      pagePath: "/pages/sub/sub",
       iconPath: "/images/icon_component.png",
       selectedIconPath: "/images/icon_component_HL.png",
       text: ""
