@@ -8,41 +8,54 @@ App({
   },
 
   onLaunch: function () {
-
+    this.userLogin();
   },
   onShow: function () {
   },
 
-  login(){
-    var code, encryptedData, iv;
+
+
+  userLogin: function() {
     var that = this;
-    //判断用户登录是否过期
+    var uuid = wx.getStorageSync('uuid');
+    if(!uuid){
+      wx.navigateTo({
+        url: '/pages/login/login',
+        success: function(res){
+          // success
+          console.log('成功跳转到登录页!')
+        },
+        fail: function() {
+          // fail
+          console.log('跳转到登录页失败!')
+        }
+      })
+      return
+    }
     wx.checkSession({
-      success(){
-        console.log('登录态未过期');
-        wx.getStorage({
-          key: 'uuid',
-          success: function(res) {
-            console.log(res.data);
-            if(!res.data){
-              that.loginIn();
-              return
-            }
-            wx.request({
-              url: that.globalData.baseServer + "API/miniprogram/mini/login/",
-              method: 'POST',
-              header: { 'content-type': 'application/x-www-form-urlencoded' },
-              data: {'uuid': res.data},
-              success(res){
-                console.log(res, res.data.status);
-                if(!res.data.status){
-                  that.loginIn();
-                }
-              }
-            })
+      success: function(){
+        // 存在登录态
+        that.getuserinfo;
+        console.log('存在登录态')
+        wx.switchTab({
+          url: '/pages/ground/ground',
+        })
+      },
+      fail: function(){
+        // 不存在登录态，去登录
+        wx.navigateTo({
+          url: '/pages/login/login',
+          success: function(res){
+            // success
+            console.log('成功跳转到登录页!')
+          },
+          fail: function() {
+            // fail
+            console.log('跳转到登录页失败!')
           }
         })
-      }
+        // that.onLogin();
+      },
     })
   }
 

@@ -11,8 +11,8 @@ Page({
     imageList: [],
     content: "",
     address: "",
-    topicId: null,
-    topicTitle: "选择合适的话题",
+    // topicId: null,
+    // topicTitle: "选择合适的话题",
   },
 
   /**
@@ -85,12 +85,13 @@ Page({
   bindContentInput: function (event) {
     var value = event.detail.value;
     var len = parseInt(value.length);
+    var max = this.data.max;
     console.log(len)
 
     // 显示输入的字数
     this.setData({
       currentWordNumber: len,
-      text: value
+      content: value
     })
 
     // 最大字数限制
@@ -143,24 +144,47 @@ Page({
 
   publishNews: function () {
     var that = this;
-    wx.uploadFile({
-      filePath: that.data.image,
-      name: 'img',
-      url: 'http://123.57.242.170:8000/image/uploadImage/',
-      formData: {
-        Param: JSON.stringify({
-          top: true,
-          id: 1
-        })
-      },
-      success: function (result) {
-        var data = result.data;
-        var credentials = data.credentials;
-      },
-      fail: function (result){
-        console.log(result)
-      }
-    });
+
+    // 发布内容不能为空
+    if (this.data.content.length < 1) {
+      console.log(this.data.content)
+      wx.showToast({
+        title: '内容不能为空',
+        icon: 'none'
+      });
+      return
+    }
+
+    // 弹窗提示
+    wx.showLoading({
+      title: '发布中...',
+    })
+
+    // 上传图片
+    for (var index in that.data.imageList) {
+      let imageFilePath = that.data.imageList[index].path;
+
+      wx.uploadFile({
+        filePath: imageFilePath,
+        name: 'img',
+        url: 'http://123.57.242.170:8000/image/uploadImage/',
+        formData: {
+          Param: JSON.stringify({
+            // top: tat.data.isTop,            // 当前图片是否置顶
+            id: 1                 // 用户ID
+          })
+        },
+        success: function (result) {
+          var data = result.data;
+          var credentials = data.credentials;
+          console.log(result)
+        },
+        fail: function (result){
+          console.log(result)
+        }
+      });
+    }
+    
     // wx.request({
     //   method: 'POST',
     //   url: 'http://123.57.242.170:8000/image/uploadImage/',
@@ -176,5 +200,14 @@ Page({
     //     console.log(res)
     //   }
     // })
-  }
+  },
+  getLocation: function() {
+    wx.chooseLocation({
+      success: res => {
+        this.setData({
+          address: res.address
+        })
+      }
+    });
+  },
 })

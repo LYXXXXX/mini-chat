@@ -1,6 +1,6 @@
 Component({
   data: {
-    selected: 0,
+    selected: null,
     color: "#7A7E83",
     selectedColor: "#3cc51f",
     list: [{

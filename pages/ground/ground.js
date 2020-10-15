@@ -131,13 +131,16 @@ Page({
   imgOnError(e) {
     console.log(e);
     var that = this;
-    var idx = e.currentTarget.dataset.index;
-    console.log(idx)
-    var _imgUrls = this.data.dt.imgList;
-    for (var i = 0; i < _imgUrls.length; i++) {
+    var index = e.currentTarget.dataset.index0;
+    var idx = e.currentTarget.dataset.index1;
+    // console.log(idx)
+    var _imgUrls = that.data.testList[index].imgList;
+    // console.log(_imgUrls)
+    var img_length = _imgUrls.length;
+    for (var i = 0; i < img_length; i++) {
       if (i == idx) {
         that.setData({
-          [`dt.imgList[${idx}]`]: '../../images/girl.jpeg'
+          [`testList[${index}].imgList[${idx}]`]: '../../images/girl.jpeg'
         })
       }
     }
@@ -146,6 +149,7 @@ Page({
   // 点击查看大图片
   LookPhoto: function (e) {
     var that = this;
+    var index = e.currentTarget.dataset.index0;
     var id = e.currentTarget.dataset.id;
     for (var i = 0; i < that.data.testList.length; i++) {
       var a = that.data.testList[i]

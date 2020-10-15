@@ -30,12 +30,12 @@
                 <image class="go-icon" src='/images/icon/to_icon_show_small.png'></image>
             </view>
         </view>
-        <navigator url="/pages/topic/topic" class="row" >
+        <!-- <navigator url="/pages/topic/topic" class="row" >
             <view class="left">{{topicTitle}}</view>
             <view class="right">
                     <image class="go-icon" src='/images/icon/to_icon_show_small.png'></image>
             </view>
-        </navigator>
+        </navigator> -->
     </view>
   
 </view>

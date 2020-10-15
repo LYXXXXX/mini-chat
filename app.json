@@ -1,8 +1,10 @@
 {
   "pages": [
+    "pages/ground/ground",
+    "pages/login/login",
     "pages/sub/sub",
     "pages/match/match",
-    "pages/ground/ground",
+    
     
     
     "pages/logs/logs",
